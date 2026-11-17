@@ -1,0 +1,1 @@
+# Noorsultan.dev
