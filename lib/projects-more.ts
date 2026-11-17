@@ -4,9 +4,12 @@ import type { ClientProject, Platform } from "./data";
 // Each card shows public/projects/<repo>.jpg, a screenshot of the live home page.
 
 // Sites whose home page could not be captured cleanly keep a drawn preview.
-const noScreenshot = new Set(["habitat-ventura"]);
+const noScreenshot = new Set<string>([]);
 // Sites with a hand-supplied full-page screenshot instead of a captured one.
-const ownScreenshot: Record<string, string> = { "cigar-galaxy": "/projects/cigar-galaxy.webp" };
+const ownScreenshot: Record<string, string> = {
+  "cigar-galaxy": "/projects/cigar-galaxy.webp",
+  "habitat-ventura": "/projects/habitat-ventura.webp",
+};
 
 const mk = (
   platform: Platform,
