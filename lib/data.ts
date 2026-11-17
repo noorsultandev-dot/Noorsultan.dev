@@ -151,10 +151,13 @@ export const experience = [
 
 // Featured client builds (GoHighLevel). Add the live URL to `url`, and a
 // screenshot at public/projects/<repo>.jpg (then set `image`) to show it.
+export const platforms = ["WordPress", "GoHighLevel", "HubSpot", "Custom", "AI Websites"] as const;
+export type Platform = (typeof platforms)[number];
+
 export type ClientProject = {
   repo: string;
   client: string;
-  platform: "GoHighLevel" | "HubSpot";
+  platform: Platform;
   location: string;
   industry: string;
   headline: string;
@@ -164,6 +167,10 @@ export type ClientProject = {
   brand: { primary: string; accent: string; dark: string };
   url?: string;
   image?: string;
+  /** Tall full-page screenshot shown under the hero image. */
+  imageFull?: string;
+  /** How far down the full-page image its hero ends, as % of its width. */
+  fullOffset?: number;
 };
 
 export const clientProjects: ClientProject[] = [
@@ -253,6 +260,9 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "ubuildit-north-texas",
+    image: "/projects/ubuildit-north-texas-hero.jpg",
+    imageFull: "/projects/ubuildit-north-texas-full.jpg",
+    fullOffset: 41,
     client: "UBuildIt North Texas",
     location: "North Texas",
     platform: "GoHighLevel",
@@ -266,6 +276,9 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "mi-floor-coatings",
+    image: "/projects/mi-floor-coatings-hero.jpg",
+    imageFull: "/projects/mi-floor-coatings-full.jpg",
+    fullOffset: 43,
     client: "Mi Floor Coatings",
     location: "Southeast Michigan",
     platform: "GoHighLevel",
@@ -279,6 +292,9 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "tdi-air-conditioning",
+    image: "/projects/tdi-air-conditioning-hero.jpg",
+    imageFull: "/projects/tdi-air-conditioning-full.jpg",
+    fullOffset: 33,
     client: "TDi Air Conditioning",
     location: "Tyler, TX",
     platform: "GoHighLevel",
@@ -292,6 +308,9 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "ktm-exteriors-roofing",
+    image: "/projects/ktm-exteriors-roofing-hero.jpg",
+    imageFull: "/projects/ktm-exteriors-roofing-full.jpg",
+    fullOffset: 34,
     client: "KTM Exteriors & Roofing",
     location: "Boston, MA",
     platform: "GoHighLevel",
@@ -305,6 +324,9 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "702-plumbair",
+    image: "/projects/702-plumbair-hero.jpg",
+    imageFull: "/projects/702-plumbair-full.jpg",
+    fullOffset: 33,
     client: "702 PlumbAIR",
     location: "Las Vegas, NV",
     platform: "GoHighLevel",
@@ -315,6 +337,20 @@ export const clientProjects: ClientProject[] = [
     sections: ["Hero", "Why Us", "Services", "Testimonials", "FAQ", "Booking"],
     tags: ["GoHighLevel", "Booking", "Lead Gen", "Responsive"],
     brand: { primary: "#9fd36b", accent: "#0d3b5e", dark: "#0d3b5e" },
+  },
+  {
+    repo: "ns-dev-portfolio",
+    client: "NS.dev Portfolio",
+    platform: "Custom",
+    location: "Lahore, PK",
+    industry: "Personal Site",
+    headline: "Websites that are fast, secure and built to convert.",
+    description:
+      "This website. Hand-coded with Next.js, Tailwind CSS and a Three.js dot wave, with a filterable projects page.",
+    sections: ["Hero", "About", "Projects", "Experience", "Contact"],
+    tags: ["Next.js", "Three.js", "Tailwind CSS", "Framer Motion"],
+    brand: { primary: "#8fb321", accent: "#ffffff", dark: "#0a0a0a" },
+    url: "https://github.com/noorsultandev-dot/Noorsultan.dev",
   },
 ];
 

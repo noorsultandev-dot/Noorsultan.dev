@@ -5,8 +5,28 @@ import Reveal from "./Reveal";
 function SitePreview({ p }: { p: ClientProject }) {
   const { primary, dark } = p.brand;
   if (p.image) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={p.image} alt={`${p.client} website`} className="aspect-[16/10] w-full object-cover object-top" />;
+    // Real screenshots: the sharp hero image on top, the rest of the page
+    // under it. On hover the whole page scrolls past.
+    return (
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-white">
+        <div className="absolute inset-x-0 top-0 transition-[top,transform] duration-[5000ms] ease-in-out group-hover:top-full group-hover:-translate-y-full motion-reduce:transition-none">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={p.image} alt={`${p.client} website screenshot`} className="block w-full" loading="lazy" />
+          {p.imageFull && (
+            <div className="overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.imageFull}
+                alt=""
+                className="block w-full"
+                style={{ marginTop: `-${p.fullOffset ?? 0}%` }}
+                loading="lazy"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
   return (
     <div className="flex aspect-[16/10] w-full flex-col bg-white">

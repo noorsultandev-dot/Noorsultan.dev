@@ -9,7 +9,7 @@ import { clientProjects } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Projects — Noor Sultan",
   description:
-    "Client websites built by Noor Sultan on HubSpot and GoHighLevel: generator service companies, a cybersecurity platform, a trades academy and local service businesses.",
+    "Client websites built by Noor Sultan on WordPress, GoHighLevel and HubSpot, plus custom-coded sites: generator service companies, a cybersecurity platform, a trades academy and local service businesses.",
 };
 
 export default function ProjectsPage() {
@@ -29,7 +29,7 @@ export default function ProjectsPage() {
               Client sites I&apos;ve <span className="font-serif font-normal italic text-accent">built</span>.
             </h1>
             <p className="mb-14 mt-6 max-w-xl text-lg leading-relaxed text-neutral-400">
-              Websites for US businesses on HubSpot and GoHighLevel, from generator service companies to a
+              Websites on WordPress, GoHighLevel and HubSpot, plus custom-coded and AI-built sites, from generator service companies to a
               cybersecurity platform.
             </p>
           </Reveal>
