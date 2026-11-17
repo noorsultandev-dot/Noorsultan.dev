@@ -228,6 +228,32 @@ export const moreProjects: ClientProject[] = [
     "#232323",
     "https://khanabadoshonline.com/",
   ),
+  mk(
+    "Shopify",
+    "khanabadosh-men",
+    "Khanabadosh Men",
+    "Men's Clothing Store",
+    "Faisalabad, Pakistan",
+    "Sang E Marmar — Winter Collection '26",
+    "Shopify store for men's eastern wear: kurta shalwar, unstitched fabric and ready-to-wear, with collection banners, a lookbook, order tracking and nationwide free shipping.",
+    ["Hero", "Featured Collection", "Fabric Collections", "Lookbook", "Store Info"],
+    "#108474",
+    "#232323",
+    "https://khanabadoshmen.com/",
+  ),
+  mk(
+    "Shopify",
+    "speed-wheels",
+    "Speed Wheels",
+    "Auto Parts Store",
+    "Pakistan",
+    "100% Genuine Auto Parts – Shop with Confidence",
+    "Shopify store for car spare parts, accessories and car care: collections, product carousels by category, shop by car make, wish list and back-in-stock alerts.",
+    ["Hero", "Collections", "LED Lights", "Car Care", "Shop by Model"],
+    "#fc2c03",
+    "#232323",
+    "https://speedwheels.pk/",
+  ),
 
   // ---------- AI Websites ----------
   mk(
