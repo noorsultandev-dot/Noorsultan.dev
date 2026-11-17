@@ -4,7 +4,9 @@ import type { ClientProject, Platform } from "./data";
 // Each card shows public/projects/<repo>.jpg, a screenshot of the live home page.
 
 // Sites whose home page could not be captured cleanly keep a drawn preview.
-const noScreenshot = new Set(["cigar-galaxy", "habitat-ventura"]);
+const noScreenshot = new Set(["habitat-ventura"]);
+// Sites with a hand-supplied full-page screenshot instead of a captured one.
+const ownScreenshot: Record<string, string> = { "cigar-galaxy": "/projects/cigar-galaxy.webp" };
 
 const mk = (
   platform: Platform,
@@ -31,7 +33,7 @@ const mk = (
   brand: { primary, accent: "#ffffff", dark },
   url,
   // Home-page screenshot, captured into public/projects/<repo>.jpg
-  image: noScreenshot.has(repo) ? undefined : `/projects/${repo}.jpg`,
+  image: noScreenshot.has(repo) ? undefined : (ownScreenshot[repo] ?? `/projects/${repo}.jpg`),
 });
 
 export const moreProjects: ClientProject[] = [
@@ -183,11 +185,11 @@ export const moreProjects: ClientProject[] = [
     "WordPress",
     "cigar-galaxy",
     "Cigar Galaxy",
-    "Cigar Retail",
+    "Online Cigar Store",
     "USA",
-    "Cigar Galaxy",
-    "Website for the Cigar Galaxy cigar business.",
-    ["Hero", "Shop", "Brands", "About", "Contact"],
+    "Free Shipping Over $99",
+    "Online store for premium cigars, pipes and tobacco, accessories and samplers, with shop by brand, featured products, latest arrivals and a newsletter signup.",
+    ["Hero", "Shop by Brand", "Featured Products", "Latest Cigars", "Accessories"],
     "#8a5a2b",
     "#2a1a0e",
     "https://cigargalaxy.com/",
