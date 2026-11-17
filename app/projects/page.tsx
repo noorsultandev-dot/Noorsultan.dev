@@ -29,7 +29,7 @@ export default function ProjectsPage() {
               Client sites I&apos;ve <span className="font-serif font-normal italic text-accent">built</span>.
             </h1>
             <p className="mb-14 mt-6 max-w-xl text-lg leading-relaxed text-neutral-400">
-              Websites on WordPress, GoHighLevel and HubSpot, plus custom-coded and AI-built sites, from generator service companies to a
+              Websites on WordPress, Shopify, GoHighLevel and HubSpot, plus custom-coded and AI-built sites, from a government programme to a
               cybersecurity platform.
             </p>
           </Reveal>

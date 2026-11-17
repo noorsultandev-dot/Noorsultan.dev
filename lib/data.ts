@@ -1,3 +1,5 @@
+import { moreProjects } from "./projects-more";
+
 // All site content lives here, taken from Noor Sultan's resume.
 // Edit this file to update the website.
 
@@ -151,7 +153,7 @@ export const experience = [
 
 // Featured client builds (GoHighLevel). Add the live URL to `url`, and a
 // screenshot at public/projects/<repo>.jpg (then set `image`) to show it.
-export const platforms = ["WordPress", "GoHighLevel", "HubSpot", "Custom", "AI Websites"] as const;
+export const platforms = ["WordPress", "Shopify", "GoHighLevel", "HubSpot", "Custom", "AI Websites"] as const;
 export type Platform = (typeof platforms)[number];
 
 export type ClientProject = {
@@ -338,20 +340,7 @@ export const clientProjects: ClientProject[] = [
     tags: ["GoHighLevel", "Booking", "Lead Gen", "Responsive"],
     brand: { primary: "#9fd36b", accent: "#0d3b5e", dark: "#0d3b5e" },
   },
-  {
-    repo: "ns-dev-portfolio",
-    client: "NS.dev Portfolio",
-    platform: "Custom",
-    location: "Lahore, PK",
-    industry: "Personal Site",
-    headline: "Websites that are fast, secure and built to convert.",
-    description:
-      "This website. Hand-coded with Next.js, Tailwind CSS and a Three.js dot wave, with a filterable projects page.",
-    sections: ["Hero", "About", "Projects", "Experience", "Contact"],
-    tags: ["Next.js", "Three.js", "Tailwind CSS", "Framer Motion"],
-    brand: { primary: "#8fb321", accent: "#ffffff", dark: "#0a0a0a" },
-    url: "https://github.com/noorsultandev-dot/Noorsultan.dev",
-  },
+  ...moreProjects,
 ];
 
 // Capability cards (skill areas from the resume).
