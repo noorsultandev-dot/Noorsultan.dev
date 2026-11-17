@@ -186,7 +186,7 @@ export default function Hero() {
           </div>
 
           {/* floating code panels */}
-          <motion.div style={near} className="absolute left-0 top-[6%] hidden w-[300px] sm:block lg:-left-10">
+          <motion.div style={near} className="absolute left-0 top-[4%] hidden w-[270px] sm:block lg:-left-24">
             <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
               <TypedPanel code={heroSnippets.developer} delay={1200} title="developer.js" />
             </motion.div>

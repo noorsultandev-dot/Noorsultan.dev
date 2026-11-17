@@ -5,7 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
-const PORTRAIT_SRC = "/portrait.jpg";
+const PORTRAIT_SRC = "/portrait.png";
 
 const vert = /* glsl */ `
   varying vec2 vUv;
@@ -38,11 +38,13 @@ const frag = /* glsl */ `
     col.g = texture2D(uTex, uv).g;
     col.b = texture2D(uTex, uv - vec2(0.0025 * uGlitch, 0.0)).b;
 
-    // key out the light studio background (outside the body area)
+    // key out the light grey studio background, but protect the white shirt
+    // (a narrow strip in the centre, below the chin)
     float lum = dot(col, vec3(0.299, 0.587, 0.114));
     float sat = max(max(col.r, col.g), col.b) - min(min(col.r, col.g), col.b);
-    float bodyZone = smoothstep(0.30, 0.18, abs(uv.x - 0.5)) * smoothstep(0.78, 0.66, uv.y);
-    float bg = smoothstep(0.72, 0.86, lum) * smoothstep(0.12, 0.04, sat) * (1.0 - bodyZone);
+    float shirt = (1.0 - smoothstep(0.08, 0.14, abs(uv.x - 0.5))) * (1.0 - smoothstep(0.48, 0.56, uv.y));
+    // (texture values are linear here, so the ~#e6e6e6 backdrop reads as ~0.78)
+    float bg = smoothstep(0.52, 0.66, lum) * (1.0 - smoothstep(0.05, 0.12, sat)) * (1.0 - shirt);
     float alpha = 1.0 - bg;
 
     // holographic grade: keep skin tones, cool the shadows
@@ -52,7 +54,7 @@ const frag = /* glsl */ `
 
     // scanlines + moving scan bar
     float scan = 0.92 + 0.08 * sin(uv.y * 900.0);
-    float bar = smoothstep(0.02, 0.0, abs(fract(uv.y - uTime * 0.12) - 0.5) - 0.48);
+    float bar = 1.0 - smoothstep(0.0, 0.02, abs(fract(uv.y - uTime * 0.12) - 0.5) - 0.48);
     graded = graded * scan + cyan * bar * 0.35;
 
     // rim glow near the edges of the visible subject
@@ -60,8 +62,8 @@ const frag = /* glsl */ `
     graded += cyan * edge * 0.9;
 
     // soft fade at frame edges and bottom
-    float fx = smoothstep(0.0, 0.08, uv.x) * smoothstep(1.0, 0.92, uv.x);
-    float fy = smoothstep(0.0, 0.22, uv.y) * smoothstep(1.0, 0.95, uv.y);
+    float fx = smoothstep(0.0, 0.08, uv.x) * (1.0 - smoothstep(0.92, 1.0, uv.x));
+    float fy = smoothstep(0.0, 0.22, uv.y) * (1.0 - smoothstep(0.95, 1.0, uv.y));
     alpha *= fx * fy;
 
     // bottom-up reveal on load
@@ -76,6 +78,7 @@ const frag = /* glsl */ `
 function Portrait({ texture }: { texture: THREE.Texture }) {
   const mat = useRef<THREE.ShaderMaterial>(null);
   const group = useRef<THREE.Group>(null);
+  const start = useRef(-1);
   const { pointer } = useThree();
   const img = texture.image as { width: number; height: number };
   const aspect = img.width / img.height;
@@ -86,13 +89,16 @@ function Portrait({ texture }: { texture: THREE.Texture }) {
     [texture],
   );
 
-  useFrame((state, dt) => {
+  useFrame((state) => {
     if (!mat.current || !group.current) return;
+    // write to the material's own uniforms (R3F may hold a copy of ours)
+    const u = mat.current.uniforms;
     const t = state.clock.elapsedTime;
-    uniforms.uTime.value = t;
-    uniforms.uReveal.value = Math.min(1.05, uniforms.uReveal.value + dt * 0.45);
+    u.uTime.value = t;
+    if (start.current < 0) start.current = t;
+    u.uReveal.value = Math.min(1.05, (t - start.current) * 0.5);
     const glitchPulse = Math.sin(t * 0.7) > 0.96 ? 1 : 0;
-    uniforms.uGlitch.value += (glitchPulse - uniforms.uGlitch.value) * 0.2;
+    u.uGlitch.value += (glitchPulse - u.uGlitch.value) * 0.2;
     group.current.rotation.y += (pointer.x * 0.28 - group.current.rotation.y) * 0.05;
     group.current.rotation.x += (-pointer.y * 0.12 - group.current.rotation.x) * 0.05;
   });

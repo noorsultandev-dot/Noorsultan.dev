@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Noor Sultan — NS.dev",
     description: "Build. Secure. Optimize. WordPress, Shopify & website security specialist.",
     type: "website",
-    images: ["/portrait.jpg"],
+    images: ["/portrait.png"],
   },
 };
 

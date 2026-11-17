@@ -15,7 +15,7 @@ Open http://localhost:3000.
 ## Edit content
 
 - All text, skills, experience and projects: `lib/data.ts`
-- Portrait used by the 3D hologram: `public/portrait.jpg`
+- Portrait used by the 3D hologram: `public/portrait.png`
 - Client project screenshots: put them in `public/projects/` and set `image: "/projects/<file>.jpg"` (and `url`) on each project in `lib/data.ts`
 
 ## Deploy
