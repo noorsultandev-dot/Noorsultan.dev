@@ -9,6 +9,7 @@ const noScreenshot = new Set<string>([]);
 const ownScreenshot: Record<string, string> = {
   "cigar-galaxy": "/projects/cigar-galaxy.webp",
   "habitat-ventura": "/projects/habitat-ventura.webp",
+  ranklizer: "/projects/ranklizer-full.jpg",
 };
 
 const mk = (
