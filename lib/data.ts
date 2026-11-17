@@ -178,6 +178,7 @@ export type ClientProject = {
 export const clientProjects: ClientProject[] = [
   {
     repo: "power-champions",
+    image: "/projects/power-champions.jpg",
     client: "PowerChampions",
     platform: "HubSpot",
     location: "Nationwide, USA",
@@ -192,6 +193,7 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "power-champions-greenville",
+    image: "/projects/power-champions-greenville.jpg",
     client: "PowerChampions of Greenville",
     platform: "HubSpot",
     location: "Greenville, SC",
@@ -206,6 +208,7 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "power-champions-atlanta",
+    image: "/projects/power-champions-atlanta.jpg",
     client: "PowerChampions of Georgia",
     platform: "HubSpot",
     location: "Atlanta, GA",
@@ -220,6 +223,7 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "triple-t-power",
+    image: "/projects/triple-t-power.jpg",
     client: "Triple T Critical Power Services",
     platform: "HubSpot",
     location: "Columbia, SC",
@@ -234,6 +238,7 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "asta-learning",
+    image: "/projects/asta-learning.jpg",
     client: "American Skilled Trades Academy",
     platform: "HubSpot",
     location: "USA",
@@ -248,6 +253,7 @@ export const clientProjects: ClientProject[] = [
   },
   {
     repo: "ai-ciso",
+    image: "/projects/ai-ciso.jpg",
     client: "AI CISO",
     platform: "HubSpot",
     location: "USA",

@@ -1,7 +1,10 @@
 import type { ClientProject, Platform } from "./data";
 
 // WordPress, Shopify, AI and custom-coded projects.
-// To show a real screenshot on a card, add image / imageFull as in data.ts.
+// Each card shows public/projects/<repo>.jpg, a screenshot of the live home page.
+
+// Sites whose home page could not be captured cleanly keep a drawn preview.
+const noScreenshot = new Set(["cigar-galaxy", "habitat-ventura"]);
 
 const mk = (
   platform: Platform,
@@ -27,6 +30,8 @@ const mk = (
   tags: [platform],
   brand: { primary, accent: "#ffffff", dark },
   url,
+  // Home-page screenshot, captured into public/projects/<repo>.jpg
+  image: noScreenshot.has(repo) ? undefined : `/projects/${repo}.jpg`,
 });
 
 export const moreProjects: ClientProject[] = [
