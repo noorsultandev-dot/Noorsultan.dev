@@ -1,15 +1,18 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "/#about", label: "About" },
+  { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/experience", label: "Experience" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -27,24 +30,32 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="/" className="text-lg font-semibold tracking-tight text-white">
+        <Link href="/" className="text-lg font-semibold tracking-tight text-white">
           NS<span className="text-accent">.dev</span>
-        </a>
+        </Link>
         <ul className="hidden items-center gap-9 md:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="text-sm text-neutral-400 transition-colors hover:text-white">
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative text-sm transition-colors hover:text-white ${active ? "text-white" : "text-neutral-400"}`}
+                >
+                  {l.label}
+                  {active && <span className="absolute -bottom-2 left-0 h-px w-full bg-accent" />}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
-        <a
-          href="/#contact"
+        <Link
+          href="/contact"
           className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5 md:inline-block"
         >
           Let&apos;s talk
-        </a>
+        </Link>
         <button
           type="button"
           className="rounded-full border border-white/15 p-2.5 text-white md:hidden"
@@ -61,13 +72,15 @@ export default function Nav() {
         <ul className="px-5 pb-6 md:hidden">
           {links.map((l) => (
             <li key={l.href}>
-              <a
+              <Link
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block border-b border-white/10 py-4 text-2xl font-medium text-white"
+                className={`block border-b border-white/10 py-4 text-2xl font-medium ${
+                  pathname === l.href ? "text-accent" : "text-white"
+                }`}
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

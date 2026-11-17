@@ -71,7 +71,7 @@ export default function Hero() {
               </span>
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center rounded-full border border-white/15 px-7 py-3.5 text-[15px] font-medium text-white transition-colors hover:border-white/40"
             >
               Get in touch

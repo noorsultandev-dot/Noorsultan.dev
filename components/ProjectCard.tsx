@@ -68,7 +68,7 @@ export default function ProjectCard({ p, delay = 0 }: { p: ClientProject; delay?
   return (
     <Reveal delay={delay}>
       <a
-        href={p.url || "/#contact"}
+        href={p.url || "/contact"}
         target={p.url ? "_blank" : undefined}
         rel={p.url ? "noopener noreferrer" : undefined}
         className="group block"

@@ -48,7 +48,7 @@ export default function ProjectsGrid() {
             I&apos;m adding these to the site. If you&apos;d like to see examples now, send me a message.
           </p>
           <a
-            href="/#contact"
+            href="/contact"
             className="mt-8 inline-block rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-accent hover:text-accent"
           >
             Ask for examples →

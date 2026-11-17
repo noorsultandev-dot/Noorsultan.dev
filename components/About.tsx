@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { skillGroups } from "@/lib/data";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
@@ -32,24 +34,84 @@ const facts = [
   { k: "Languages", v: "English, Urdu, Punjabi" },
 ];
 
-export default function About() {
+function Story() {
+  return (
+    <>
+      <p className="text-xl leading-relaxed text-neutral-300 sm:text-2xl sm:leading-relaxed">
+        For 2 years and 7 months I&apos;ve built, secured and maintained websites for agencies and their clients, across
+        WordPress, Shopify, GoHighLevel, HubSpot and Wix.
+      </p>
+      <p className="mt-6 text-lg leading-relaxed text-neutral-400">
+        The part most developers avoid is the part I like. When a site is hacked or under attack, I clean it, read the
+        server logs to find how the attacker got in, close that door and harden the site so it doesn&apos;t happen
+        again.
+      </p>
+    </>
+  );
+}
+
+function Services({ wide = false }: { wide?: boolean }) {
+  return (
+    <div
+      className={`grid gap-px self-start overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 ${
+        wide ? "lg:grid-cols-4" : ""
+      }`}
+    >
+      {services.map((s, i) => (
+        <Reveal key={s.n} delay={i * 0.06} className="bg-bg p-7 transition-colors hover:bg-card">
+          <p className="font-mono text-xs text-accent">{s.n}</p>
+          <h3 className="mt-8 text-xl font-medium tracking-tight text-white">{s.title}</h3>
+          <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">{s.text}</p>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+/** Short version for the home page. */
+export function AboutTeaser() {
   return (
     <section id="about" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
       <SectionHead index="01" label="About">
         I build websites, and I keep them <span className="font-serif font-normal italic text-accent">standing</span>.
       </SectionHead>
-
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
         <Reveal>
-          <p className="text-xl leading-relaxed text-neutral-300 sm:text-2xl sm:leading-relaxed">
-            For 2 years and 7 months I&apos;ve built, secured and maintained websites for agencies and their clients,
-            across WordPress, Shopify, GoHighLevel, HubSpot and Wix.
-          </p>
-          <p className="mt-6 text-lg leading-relaxed text-neutral-400">
-            The part most developers avoid is the part I like. When a site is hacked or under attack, I clean it, read
-            the server logs to find how the attacker got in, close that door and harden the site so it doesn&apos;t
-            happen again.
-          </p>
+          <Story />
+          <Link
+            href="/about"
+            className="group mt-10 inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-[15px] font-medium text-white transition-colors hover:border-accent hover:text-accent"
+          >
+            More about me
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden>
+              →
+            </span>
+          </Link>
+        </Reveal>
+        <Services />
+      </div>
+    </section>
+  );
+}
+
+/** Full content for the /about page. */
+export default function About() {
+  return (
+    <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-32">
+      <div className="grid gap-12 lg:grid-cols-[340px_1fr] lg:gap-20">
+        <Reveal>
+          <div className="relative aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-[24px] bg-neutral-800">
+            <Image
+              src="/portrait.png"
+              alt="Portrait of Noor Sultan"
+              fill
+              sizes="340px"
+              className="object-cover object-top grayscale"
+            />
+          </div>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <Story />
           <dl className="mt-10 grid grid-cols-2 gap-y-6 border-t border-white/10 pt-8 text-sm">
             {facts.map((f) => (
               <div key={f.k}>
@@ -59,21 +121,18 @@ export default function About() {
             ))}
           </dl>
         </Reveal>
-
-        <div className="grid gap-px self-start overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
-          {services.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.06} className="bg-bg p-7 transition-colors hover:bg-card">
-              <p className="font-mono text-xs text-accent">{s.n}</p>
-              <h3 className="mt-8 text-xl font-medium tracking-tight text-white">{s.title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">{s.text}</p>
-            </Reveal>
-          ))}
-        </div>
       </div>
 
       <div className="mt-24">
         <Reveal>
-          <h3 className="text-2xl font-medium tracking-tight text-white">Tools I work with</h3>
+          <h2 className="mb-8 text-3xl font-medium tracking-tight text-white sm:text-4xl">What I do</h2>
+        </Reveal>
+        <Services wide />
+      </div>
+
+      <div className="mt-24">
+        <Reveal>
+          <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl">Tools I work with</h2>
         </Reveal>
         <div className="mt-8 border-t border-white/10">
           {skillGroups.map((g, i) => (

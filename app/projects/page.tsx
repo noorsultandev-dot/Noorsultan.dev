@@ -43,7 +43,7 @@ export default function ProjectsPage() {
               Your project could be <span className="font-serif font-normal italic text-accent">next</span>.
             </h2>
             <Link
-              href="/#contact"
+              href="/contact"
               className="shrink-0 rounded-full bg-accent px-7 py-3.5 text-[15px] font-semibold text-black transition-transform hover:-translate-y-0.5"
             >
               Get in touch →
