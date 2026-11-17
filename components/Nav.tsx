@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Nav() {
@@ -27,7 +27,7 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="#home" className="text-lg font-semibold tracking-tight text-white">
+        <a href="/" className="text-lg font-semibold tracking-tight text-white">
           NS<span className="text-accent">.dev</span>
         </a>
         <ul className="hidden items-center gap-9 md:flex">
@@ -40,7 +40,7 @@ export default function Nav() {
           ))}
         </ul>
         <a
-          href="#contact"
+          href="/#contact"
           className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5 md:inline-block"
         >
           Let&apos;s talk
