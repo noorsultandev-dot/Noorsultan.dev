@@ -2,126 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #03050a;
-  --cyan: #22d3ee;
-  --violet: #a78bfa;
-}
-
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 72px;
-  background: var(--bg);
+  scroll-padding-top: 80px;
+  background: #0a0a0a;
 }
 
 body {
-  background: var(--bg);
-  color: #e2e8f0;
+  background: #0a0a0a;
+  color: #ededed;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.3);
-  color: #fff;
+  background: #c6f432;
+  color: #0a0a0a;
 }
 
-/* Workspace grid */
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+:focus-visible {
+  outline: 2px solid #c6f432;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-/* Glass panel used for editor/terminal windows */
-.panel {
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(7, 11, 20, 0.88));
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
 }
-
-.holo {
-  background: linear-gradient(180deg, rgba(8, 47, 73, 0.45), rgba(15, 23, 42, 0.55));
-  border: 1px solid rgba(34, 211, 238, 0.28);
-  box-shadow: 0 0 40px -12px rgba(34, 211, 238, 0.55), inset 0 0 24px -12px rgba(34, 211, 238, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.text-gradient {
-  background: linear-gradient(90deg, #67e8f9, #a78bfa 55%, #f0abfc);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.caret {
-  display: inline-block;
-  width: 0.55em;
-  height: 1.1em;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  background: #4ade80;
-  animation: blink 1s steps(1) infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
-}
-
-/* Glowing border on hover for repo cards */
-.glow-border {
-  position: relative;
-}
-.glow-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.7), rgba(167, 139, 250, 0.2), rgba(244, 114, 182, 0.6));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-.glow-border:hover::before {
-  opacity: 1;
-}
-
-.scanlines {
-  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 3px);
-}
-
-/* Hide native cursor only when custom cursor is active */
-html.has-custom-cursor,
-html.has-custom-cursor * {
-  cursor: none !important;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  scrollbar-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+  .marquee-track {
+    animation: none;
   }
 }

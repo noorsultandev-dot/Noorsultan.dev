@@ -1,7 +1,7 @@
 # Noorsultan.dev
 
 Portfolio of **Noor Sultan**: WordPress developer, Shopify developer and website security specialist.
-It's a futuristic developer workspace built with Next.js, Three.js (React Three Fiber) and Framer Motion.
+A clean, minimal site built with Next.js, Three.js (React Three Fiber) and Framer Motion.
 
 ## Run locally
 

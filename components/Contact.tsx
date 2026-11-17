@@ -1,141 +1,93 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { profile } from "@/lib/data";
-import SectionHeading from "./SectionHeading";
-import WindowChrome from "./WindowChrome";
-import { keyClick } from "@/lib/sound";
-
-const links = [
-  { label: "email", value: profile.email, href: `mailto:${profile.email}` },
-  { label: "linkedin", value: "in/noor-sultan-dev", href: profile.linkedin },
-  { label: "github", value: "noorsultandev-dot", href: profile.github },
-  { label: "location", value: profile.location },
-];
+import Reveal from "./Reveal";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const subject = encodeURIComponent(`Project inquiry from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
+    const body = encodeURIComponent(`${form.message}\n\n${form.name} (${form.email})`);
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setSent(true);
   };
 
   const field =
-    "w-full rounded-md border border-white/10 bg-ink-950/70 px-3 py-2.5 font-mono text-[14px] text-slate-100 placeholder:text-slate-600 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20";
+    "w-full border-b border-white/15 bg-transparent py-3.5 text-base text-white placeholder:text-neutral-600 outline-none transition-colors focus:border-accent";
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          file="contact.tsx"
-          title="Let's build something"
-          sub="Need a new website, a store, a migration, or a hacked site cleaned up today? Send me a message."
-        />
-        <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <WindowChrome title="contact.json">
-              <div className="p-5 font-mono text-[14px] leading-8">
-                <p className="text-slate-500">{"{"}</p>
-                {links.map((l, i) => (
-                  <p key={l.label} className="pl-5">
-                    <span className="text-sky-300">&quot;{l.label}&quot;</span>
-                    <span className="text-slate-400">: </span>
-                    {l.href ? (
-                      <a
-                        href={l.href}
-                        target={l.href.startsWith("http") ? "_blank" : undefined}
-                        rel="noopener noreferrer"
-                        className="text-emerald-300 underline-offset-4 hover:underline"
-                      >
-                        &quot;{l.value}&quot;
-                      </a>
-                    ) : (
-                      <span className="text-emerald-300">&quot;{l.value}&quot;</span>
-                    )}
-                    {i < links.length - 1 && <span className="text-slate-400">,</span>}
-                  </p>
-                ))}
-                <p className="text-slate-500">{"}"}</p>
-                <div className="mt-4 flex items-center gap-2 rounded-md border border-emerald-400/30 bg-emerald-400/10 px-3 py-2 text-[12.5px] text-emerald-300">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                  {profile.status} · replies within 24h
-                </div>
-              </div>
-            </WindowChrome>
-          </motion.div>
+    <section id="contact" className="border-t border-white/10">
+      <div className="mx-auto grid max-w-6xl gap-16 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-2">
+        <Reveal>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500">
+            <span className="text-accent">04</span> — Contact
+          </p>
+          <h2 className="mt-4 text-5xl font-medium leading-none tracking-tight text-white sm:text-7xl">
+            Let&apos;s build something <span className="font-serif font-normal italic text-accent">good</span>.
+          </h2>
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-neutral-400">
+            Need a new site, a store, a migration, or a hacked site cleaned up? Tell me what&apos;s going on.
+          </p>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mt-10 inline-block break-all border-b border-accent pb-1 text-xl font-medium text-white transition-colors hover:text-accent sm:text-2xl"
+          >
+            {profile.email}
+          </a>
+          <div className="mt-8 flex gap-6 text-sm text-neutral-400">
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+              LinkedIn ↗
+            </a>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+              GitHub ↗
+            </a>
+          </div>
+        </Reveal>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-            <WindowChrome title="~/portfolio — send-message.sh">
-              <form onSubmit={submit} className="space-y-4 p-5">
-                <p className="font-mono text-[12.5px] text-slate-500">
-                  <span className="text-emerald-400">$</span> ./send-message.sh --to noor
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block">
-                    <span className="mb-1.5 block font-mono text-[12px] text-cyan-300">--name</span>
-                    <input
-                      required
-                      className={field}
-                      placeholder="Jane Doe"
-                      value={form.name}
-                      onChange={(e) => {
-                        setForm({ ...form, name: e.target.value });
-                        keyClick();
-                      }}
-                    />
-                  </label>
-                  <label className="block">
-                    <span className="mb-1.5 block font-mono text-[12px] text-cyan-300">--email</span>
-                    <input
-                      required
-                      type="email"
-                      className={field}
-                      placeholder="jane@company.com"
-                      value={form.email}
-                      onChange={(e) => {
-                        setForm({ ...form, email: e.target.value });
-                        keyClick();
-                      }}
-                    />
-                  </label>
-                </div>
-                <label className="block">
-                  <span className="mb-1.5 block font-mono text-[12px] text-cyan-300">--message</span>
-                  <textarea
-                    required
-                    rows={5}
-                    className={field}
-                    placeholder="Tell me about your project…"
-                    value={form.message}
-                    onChange={(e) => {
-                      setForm({ ...form, message: e.target.value });
-                      keyClick();
-                    }}
-                  />
-                </label>
-                <div className="flex flex-wrap items-center gap-4">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 rounded-lg bg-cyan-400 px-5 py-3 font-mono text-sm font-semibold text-ink-950 shadow-glow transition hover:bg-cyan-300"
-                  >
-                    execute <span aria-hidden>⏎</span>
-                  </button>
-                  {sent && (
-                    <p className="font-mono text-[12.5px] text-emerald-300" role="status">
-                      ✓ opening your mail app…
-                    </p>
-                  )}
-                </div>
-              </form>
-            </WindowChrome>
-          </motion.div>
-        </div>
+        <Reveal delay={0.1}>
+          <form onSubmit={submit} className="rounded-3xl border border-white/10 bg-card p-7 sm:p-10">
+            <label className="block">
+              <span className="text-sm text-neutral-500">Your name</span>
+              <input
+                required
+                className={field}
+                placeholder="Jane Doe"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+              />
+            </label>
+            <label className="mt-6 block">
+              <span className="text-sm text-neutral-500">Email</span>
+              <input
+                required
+                type="email"
+                className={field}
+                placeholder="jane@company.com"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
+            </label>
+            <label className="mt-6 block">
+              <span className="text-sm text-neutral-500">Project details</span>
+              <textarea
+                required
+                rows={4}
+                className={`${field} resize-none`}
+                placeholder="What do you need help with?"
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+              />
+            </label>
+            <button
+              type="submit"
+              className="mt-9 w-full rounded-full bg-accent py-4 text-[15px] font-semibold text-black transition-transform hover:-translate-y-0.5"
+            >
+              Send message →
+            </button>
+          </form>
+        </Reveal>
       </div>
     </section>
   );

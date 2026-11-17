@@ -1,241 +1,126 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { heroSnippets, profile } from "@/lib/data";
-import CodeBlock from "./CodeBlock";
-import WindowChrome from "./WindowChrome";
-import Terminal from "./Terminal";
-import { useLineTyper } from "./useTypewriter";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-const HeroScene = dynamic(() => import("./HeroScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="grid h-full place-items-center font-mono text-xs text-cyan-300/70">
-      initializing hologram<span className="caret !h-3 !w-1.5" />
-    </div>
-  ),
+const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
+
+const ease: [number, number, number, number] = [0.21, 0.6, 0.35, 1];
+const up = (delay: number) => ({
+  initial: { opacity: 0, y: 28 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease },
 });
 
-const TOOLS = [
-  { label: "WP", title: "WordPress", color: "#a78bfa", pos: "left-[6%] top-[46%]" },
-  { label: "JS", title: "JavaScript", color: "#facc15", pos: "right-[4%] top-[40%]" },
-  { label: "⚛", title: "React", color: "#22d3ee", pos: "left-[16%] bottom-[10%]" },
-  { label: "S", title: "Shopify", color: "#4ade80", pos: "right-[46%] bottom-[3%]" },
-  { label: "☁", title: "Cloudflare", color: "#fb923c", pos: "left-[42%] top-[2%]" },
-  { label: "3D", title: "Three.js", color: "#f472b6", pos: "left-[2%] bottom-[34%]" },
+const stats = [
+  { k: "2.7", unit: "yrs", l: "Experience" },
+  { k: "6", unit: "+", l: "Platforms" },
+  { k: "3", unit: "", l: "Companies" },
 ];
 
-function RotatingTitle() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setI((n) => (n + 1) % profile.titles.length), 2600);
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <span className="relative inline-flex h-[1.4em] overflow-hidden align-bottom">
-      <motion.span
-        key={i}
-        initial={{ y: "100%", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: "-100%", opacity: 0 }}
-        transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
-        className="text-gradient whitespace-nowrap font-semibold"
-      >
-        {profile.titles[i]}
-      </motion.span>
-    </span>
-  );
-}
-
-function TypedPanel({ code, delay, title }: { code: string; delay: number; title: string }) {
-  const lines = code.split("\n");
-  const [start, setStart] = useState(false);
-  useEffect(() => {
-    const id = setTimeout(() => setStart(true), delay);
-    return () => clearTimeout(id);
-  }, [delay]);
-  const { visible, activeLine } = useLineTyper(lines, start, 22);
-  return (
-    <WindowChrome title={title} variant="holo">
-      <div className="px-2 py-2.5">
-        <CodeBlock lines={visible} activeLine={activeLine} caret minLines={lines.length} className="!text-[11.5px] !leading-[1.35rem]" />
-      </div>
-    </WindowChrome>
-  );
-}
-
 export default function Hero() {
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 18 });
-  const sy = useSpring(my, { stiffness: 60, damping: 18 });
-  const near = { x: useTransform(sx, (v) => v * 18), y: useTransform(sy, (v) => v * 14) };
-  const far = { x: useTransform(sx, (v) => v * -12), y: useTransform(sy, (v) => v * -10) };
-
   return (
-    <section
-      id="home"
-      onPointerMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left) / r.width - 0.5);
-        my.set((e.clientY - r.top) / r.height - 0.5);
-      }}
-      className="relative overflow-hidden pt-24 lg:min-h-screen lg:pt-20"
-    >
-      <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
-      <div className="pointer-events-none absolute -left-40 top-20 h-[480px] w-[480px] rounded-full bg-cyan-500/10 blur-[120px]" aria-hidden />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-[520px] w-[520px] rounded-full bg-violet-600/10 blur-[130px]" aria-hidden />
+    <section id="home" className="relative overflow-hidden">
+      {/* 3D wave */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%]"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent, #000 45%, #000 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, #000 45%, #000 80%, transparent)",
+        }}
+        aria-hidden
+      >
+        <HeroScene />
+      </div>
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 sm:px-6 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[1.02fr_1fr] lg:gap-6">
-        {/* Left: intro + terminal */}
-        <div className="relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 font-mono text-[11px] text-emerald-300"
+      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 pb-40 pt-32 sm:px-8 lg:min-h-screen lg:grid-cols-[1.3fr_0.7fr] lg:gap-10 lg:pb-52 lg:pt-28">
+        <div>
+          <motion.p
+            {...up(0)}
+            className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-sm text-neutral-300"
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
-            {profile.status.toLowerCase()} · {profile.location}
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-            className="font-mono text-sm text-slate-400"
-          >
-            <span className="text-violet-400">const</span> <span className="text-sky-300">hello</span> ={" "}
-            <span className="text-emerald-300">&quot;world&quot;</span>; <span className="text-slate-500">// I&apos;m</span>
+            Available for new projects
           </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.14 }}
-            className="mt-2 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+            {...up(0.08)}
+            className="mt-7 text-[clamp(2.7rem,7.2vw,5.6rem)] font-medium leading-[0.98] tracking-[-0.03em] text-white"
           >
-            Noor Sultan<span className="text-cyan-300">.</span>
+            Websites that are fast, <span className="font-serif font-normal italic text-accent">secure</span> and built
+            to convert.
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24 }}
-            className="mt-4 text-xl text-slate-300 sm:text-2xl"
-          >
-            <RotatingTitle />
+          <motion.p {...up(0.16)} className="mt-7 max-w-xl text-lg leading-relaxed text-neutral-400">
+            I&apos;m Noor Sultan, a web developer in Lahore. I build WordPress, Shopify and GoHighLevel websites, and I
+            rescue the ones that get hacked.
           </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.32 }}
-            className="mt-5 max-w-xl text-[15.5px] leading-relaxed text-slate-400"
-          >
-            I build fast WordPress, Shopify and GoHighLevel websites, and I keep them safe: recovering hacked sites,
-            stopping bot and DDoS attacks, and tracing how attackers got in.{" "}
-            <span className="font-mono text-cyan-300">Build. Secure. Optimize.</span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-7 flex flex-wrap gap-3"
-          >
+          <motion.div {...up(0.24)} className="mt-9 flex flex-wrap items-center gap-4">
             <a
-              href="#projects"
-              className="group inline-flex items-center gap-2 rounded-lg bg-cyan-400 px-5 py-3 font-mono text-sm font-semibold text-ink-950 shadow-glow transition hover:bg-cyan-300"
+              href="#work"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-[15px] font-semibold text-black transition-transform hover:-translate-y-0.5"
             >
-              ./view-projects
-              <span className="transition-transform group-hover:translate-x-1">→</span>
+              See my work
+              <span className="transition-transform group-hover:translate-x-1" aria-hidden>
+                →
+              </span>
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-3 font-mono text-sm text-slate-200 transition hover:border-violet-400/60 hover:bg-violet-400/10"
+              className="inline-flex items-center rounded-full border border-white/15 px-7 py-3.5 text-[15px] font-medium text-white transition-colors hover:border-white/40"
             >
-              $ hire --me
+              Get in touch
             </a>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-9 max-w-xl"
-          >
-            <Terminal />
-          </motion.div>
+          <motion.dl {...up(0.32)} className="mt-10 flex gap-10 border-t border-white/10 pt-6 sm:gap-14">
+            {stats.map((s) => (
+              <div key={s.l}>
+                <dd className="text-3xl font-medium tracking-tight text-white sm:text-4xl">
+                  {s.k}
+                  <span className="ml-0.5 text-lg text-accent">{s.unit}</span>
+                </dd>
+                <dt className="mt-1 text-sm text-neutral-500">{s.l}</dt>
+              </div>
+            ))}
+          </motion.dl>
         </div>
 
-        {/* Right: 3D portrait + floating holographic code */}
+        {/* Portrait */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative h-[520px] sm:h-[600px] lg:h-[720px]"
+          transition={{ duration: 1, delay: 0.2, ease }}
+          className="relative mx-auto w-full max-w-[320px] lg:max-w-none"
         >
-          <div className="absolute inset-0">
-            <HeroScene />
-          </div>
-
-          {/* floating code panels */}
-          <motion.div style={near} className="absolute left-0 top-[4%] hidden w-[270px] sm:block lg:-left-24">
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-              <TypedPanel code={heroSnippets.developer} delay={1200} title="developer.js" />
-            </motion.div>
-          </motion.div>
-
-          <motion.div style={far} className="absolute bottom-[14%] right-0 hidden w-[270px] sm:block lg:-right-6">
-            <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
-              <TypedPanel code={heroSnippets.future} delay={3600} title="future.js" />
-            </motion.div>
-          </motion.div>
-
-          <motion.div style={far} className="absolute right-[2%] top-[4%] hidden w-[230px] xl:block">
-            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}>
-              <TypedPanel code={heroSnippets.secure} delay={5200} title="harden.ts" />
-            </motion.div>
-          </motion.div>
-
-          {/* mobile: one compact panel */}
-          <div className="absolute inset-x-2 bottom-0 sm:hidden">
-            <TypedPanel code={heroSnippets.future} delay={1500} title="future.js" />
-          </div>
-
-          {/* floating tool icons */}
-          {TOOLS.map((t, i) => (
-            <motion.div
-              key={t.title}
-              className={`absolute ${t.pos} hidden sm:block`}
-              animate={{ y: [0, i % 2 ? 8 : -8, 0] }}
-              transition={{ duration: 4 + i * 0.6, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div
-                title={t.title}
-                className="grid h-10 w-10 place-items-center rounded-xl border bg-ink-900/70 font-mono text-xs font-bold backdrop-blur"
-                style={{ color: t.color, borderColor: t.color + "55", boxShadow: `0 0 22px -6px ${t.color}` }}
-              >
-                {t.label}
+          <div className="absolute -inset-3 rounded-[32px] border border-accent/30" aria-hidden />
+          <div className="group relative aspect-[4/5] overflow-hidden rounded-[24px] bg-neutral-800">
+            <Image
+              src="/portrait.png"
+              alt="Portrait of Noor Sultan"
+              fill
+              priority
+              sizes="(max-width: 1024px) 320px, 400px"
+              className="object-cover object-top grayscale transition duration-700 group-hover:grayscale-0"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" aria-hidden />
+            <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
+              <div>
+                <p className="text-lg font-semibold leading-tight text-white">Noor Sultan</p>
+                <p className="text-sm text-neutral-300">Web Developer · Lahore, PK</p>
               </div>
-            </motion.div>
-          ))}
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-accent text-lg text-black" aria-hidden>
+                ↗
+              </span>
+            </div>
+          </div>
         </motion.div>
       </div>
-
-      <a
-        href="#about"
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[11px] text-slate-500 lg:flex"
-      >
-        scroll
-        <span className="h-8 w-[1px] animate-pulse bg-gradient-to-b from-cyan-400 to-transparent" />
-      </a>
     </section>
   );
 }

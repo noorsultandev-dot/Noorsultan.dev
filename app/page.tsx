@@ -1,36 +1,32 @@
 import Nav from "@/components/Nav";
-import Cursor from "@/components/Cursor";
-import CodeBackground from "@/components/CodeBackground";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import About from "@/components/About";
-import Skills from "@/components/Skills";
+import Work from "@/components/Work";
 import Experience from "@/components/Experience";
-import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import { profile } from "@/lib/data";
 
 export default function Home() {
   return (
     <>
-      <CodeBackground />
-      <Cursor />
       <Nav />
       <main>
         <Hero />
+        <Marquee />
         <About />
-        <Skills />
+        <Work />
         <Experience />
-        <Projects />
         <Contact />
       </main>
-      <footer className="border-t border-white/5 py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 font-mono text-[12px] text-slate-500 sm:flex-row sm:px-6">
+      <footer className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-8 text-sm text-neutral-500 sm:flex-row sm:px-8">
           <p>
-            © {new Date().getFullYear()} {profile.name} · <span className="text-cyan-300">Build. Secure. Optimize.</span>
+            © {new Date().getFullYear()} {profile.name}
           </p>
-          <p>
-            built with next.js + three.js · <span className="text-emerald-400">●</span> all systems operational
-          </p>
+          <a href="#home" className="transition-colors hover:text-white">
+            Back to top ↑
+          </a>
         </div>
       </footer>
     </>
