@@ -154,6 +154,7 @@ export const experience = [
 export type ClientProject = {
   repo: string;
   client: string;
+  platform: "GoHighLevel" | "HubSpot";
   location: string;
   industry: string;
   headline: string;
@@ -167,9 +168,94 @@ export type ClientProject = {
 
 export const clientProjects: ClientProject[] = [
   {
+    repo: "power-champions",
+    client: "PowerChampions",
+    platform: "HubSpot",
+    location: "Nationwide, USA",
+    industry: "Critical Power Network",
+    headline: "A national network rooted in trust, integrity and a shared purpose",
+    description:
+      "Main site for a national network of generator service providers: company values, the market-partner model, partner testimonials, news, blog, podcast and careers.",
+    sections: ["Hero", "Our Values", "Partner Model", "Testimonials", "Become a Partner"],
+    tags: ["HubSpot", "Multi-site", "Blog", "Lead Gen"],
+    brand: { primary: "#eaa607", accent: "#ffffff", dark: "#101010" },
+    url: "https://www.power-champions.com/",
+  },
+  {
+    repo: "power-champions-greenville",
+    client: "PowerChampions of Greenville",
+    platform: "HubSpot",
+    location: "Greenville, SC",
+    industry: "Commercial Generators",
+    headline: "Commercial Generator Services in Greenville, SC",
+    description:
+      "Local branch site: generator sales, installation, repair, rentals and load bank testing, the industries served, FAQs and request-service calls to action.",
+    sections: ["Hero", "Services", "Industries", "Why Us", "Request a Quote"],
+    tags: ["HubSpot", "Local SEO", "Service Pages", "Lead Gen"],
+    brand: { primary: "#f57500", accent: "#ffffff", dark: "#101010" },
+    url: "https://www.greenville.power-champions.com/",
+  },
+  {
+    repo: "power-champions-atlanta",
+    client: "PowerChampions of Georgia",
+    platform: "HubSpot",
+    location: "Atlanta, GA",
+    industry: "Commercial Generators",
+    headline: "Commercial Generator Services in Atlanta, GA",
+    description:
+      "Metro Atlanta branch site with a stats band, four service cards, industry pages, client results and 24/7 emergency service requests.",
+    sections: ["Hero", "Stats", "Services", "Industries", "Client Results"],
+    tags: ["HubSpot", "Local SEO", "Industry Pages", "Lead Gen"],
+    brand: { primary: "#b8862b", accent: "#ffffff", dark: "#0f1317" },
+    url: "https://www.atlanta.power-champions.com/",
+  },
+  {
+    repo: "triple-t-power",
+    client: "Triple T Critical Power Services",
+    platform: "HubSpot",
+    location: "Columbia, SC",
+    industry: "Electrical & Generators",
+    headline: "Commercial Electrical Services in Columbia",
+    description:
+      "Electrical and generator services site: core services, critical-facility focus, six industries supported and consultation requests.",
+    sections: ["Hero", "Generators", "Core Services", "Industries", "Consultation"],
+    tags: ["HubSpot", "Service Pages", "Local SEO", "Lead Gen"],
+    brand: { primary: "#0c5394", accent: "#ffffff", dark: "#082f55" },
+    url: "https://www.tripletpower.com/",
+  },
+  {
+    repo: "asta-learning",
+    client: "American Skilled Trades Academy",
+    platform: "HubSpot",
+    location: "USA",
+    industry: "Trades Training",
+    headline: "American Skilled Trades Academy",
+    description:
+      "Training academy site for technicians and employers: programs, partners, events and news, with enrolment and talk-to-our-team calls to action.",
+    sections: ["Hero", "Who It's For", "Our Approach", "Training Programs", "Enroll"],
+    tags: ["HubSpot", "Education", "Programs", "Events"],
+    brand: { primary: "#0c5394", accent: "#ffffff", dark: "#082f55" },
+    url: "https://www.astalearning.com/",
+  },
+  {
+    repo: "ai-ciso",
+    client: "AI CISO",
+    platform: "HubSpot",
+    location: "USA",
+    industry: "Cybersecurity",
+    headline: "Your Cybersecurity Easy Button",
+    description:
+      "Cybersecurity platform and virtual CISO site for SMBs and MSPs: nine platform services, partner logos, industries supported and a book-a-demo form.",
+    sections: ["Hero", "Partners", "Platform", "Core Services", "Industries"],
+    tags: ["HubSpot", "SaaS", "Demo Form", "Blog"],
+    brand: { primary: "#e37d30", accent: "#ffffff", dark: "#1c4073" },
+    url: "https://aiciso.com/",
+  },
+  {
     repo: "ubuildit-north-texas",
     client: "UBuildIt North Texas",
     location: "North Texas",
+    platform: "GoHighLevel",
     industry: "Home Building",
     headline: "Build Your Dream Home — With Expert Help & Full Control",
     description:
@@ -182,6 +268,7 @@ export const clientProjects: ClientProject[] = [
     repo: "mi-floor-coatings",
     client: "Mi Floor Coatings",
     location: "Southeast Michigan",
+    platform: "GoHighLevel",
     industry: "Concrete Coatings",
     headline: "Porch & Patio Floor Coating Services in Southeast Michigan",
     description:
@@ -194,6 +281,7 @@ export const clientProjects: ClientProject[] = [
     repo: "tdi-air-conditioning",
     client: "TDi Air Conditioning",
     location: "Tyler, TX",
+    platform: "GoHighLevel",
     industry: "HVAC",
     headline: "Fast, Reliable AC Installs & Replacements in Tyler, TX",
     description:
@@ -206,6 +294,7 @@ export const clientProjects: ClientProject[] = [
     repo: "ktm-exteriors-roofing",
     client: "KTM Exteriors & Roofing",
     location: "Boston, MA",
+    platform: "GoHighLevel",
     industry: "Roofing",
     headline: "Boston's Trusted Roof Installation & Replacement Company",
     description:
@@ -218,6 +307,7 @@ export const clientProjects: ClientProject[] = [
     repo: "702-plumbair",
     client: "702 PlumbAIR",
     location: "Las Vegas, NV",
+    platform: "GoHighLevel",
     industry: "Plumbing & AC",
     headline: "Fast, Reliable Air Conditioning Repair in Las Vegas",
     description:

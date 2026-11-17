@@ -62,7 +62,7 @@ export default function Work() {
                 rel={p.url ? "noopener noreferrer" : undefined}
                 className="group block"
               >
-                <div className="overflow-hidden rounded-2xl border border-white/10 bg-card p-3 transition-colors group-hover:border-accent/50 sm:p-4">
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-card p-3 transition-colors group-hover:border-accent/50 sm:p-4">
                   <div className="overflow-hidden rounded-xl">
                     <div className="transition-transform duration-700 group-hover:scale-[1.03]">
                       <SitePreview p={p} />
@@ -73,7 +73,7 @@ export default function Work() {
                   <div>
                     <h3 className="text-2xl font-medium tracking-tight text-white">{p.client}</h3>
                     <p className="mt-1 text-sm text-neutral-500">
-                      {p.industry} · {p.location} · GoHighLevel
+                      {p.industry} · {p.location} · {p.platform}
                     </p>
                   </div>
                   <span
